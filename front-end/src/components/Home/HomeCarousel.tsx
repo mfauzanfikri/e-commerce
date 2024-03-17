@@ -20,7 +20,7 @@ const items = [
 
 const template = (item: { id: number }) => {
   return (
-    <div className="mb-2 flex h-96 w-full items-center justify-center rounded bg-gray-700 lg:h-[600px]">
+    <div className="mb-2 flex h-96 w-full items-center justify-center rounded bg-gray-700 lg:h-[600px] xl:h-[700px]">
       <p className="text-4xl font-bold text-white">{item.id}</p>
     </div>
   );
