@@ -1,12 +1,12 @@
 "use client";
 
 import ProductList from "@/components/product-list";
+import { Product } from "@/types/product-type";
 import { ChangeEvent, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { ProductType } from "../product";
 
 type Props = {
-  initialProducts?: ProductType[];
+  initialProducts?: Product[];
 };
 
 type SearchState = {
@@ -14,7 +14,7 @@ type SearchState = {
   start: boolean;
 };
 
-const demoData: ProductType[] = [
+const demoData: Product[] = [
   {
     id: 1,
     name: "Sausages",

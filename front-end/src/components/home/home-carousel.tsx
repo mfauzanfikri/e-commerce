@@ -1,6 +1,5 @@
 "use client";
 
-import useWindowDimensions from "@/hooks/useWindowDimensions";
 import { Carousel } from "primereact/carousel";
 import { ComponentProps } from "react";
 

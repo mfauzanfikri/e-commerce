@@ -1,21 +1,14 @@
+import { Product } from "@/types/product-type";
 import formatToIDR from "@/utils/formatToIDR";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Tag } from "primereact/tag";
 import { ComponentProps } from "react";
 
-export type ProductType = {
-  id: number;
-  name: string;
-  price: number;
-  categories: string;
-  stock: number;
-};
-
 type CardProps = ComponentProps<typeof Card>;
 
 type Props = {
-  product: ProductType;
+  product: Product;
 } & CardProps;
 
 const Product = ({ product, ...props }: Props) => {

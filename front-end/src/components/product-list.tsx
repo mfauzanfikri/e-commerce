@@ -1,4 +1,5 @@
-import Product, { ProductType } from "./product";
+import { Product as ProductType } from "@/types/product-type";
+import Product from "./product";
 
 type Props = {
   products: ProductType[];
