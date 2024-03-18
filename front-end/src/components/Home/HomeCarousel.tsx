@@ -39,11 +39,9 @@ const HomeCarousel = ({
   numVisible = 1,
   itemTemplate = template,
   circular = true,
-
+  autoplayInterval = 5000,
   ...props
 }: CardProps) => {
-  const { width } = useWindowDimensions();
-
   return (
     <Carousel
       pt={pt}
@@ -51,7 +49,7 @@ const HomeCarousel = ({
       numVisible={numVisible}
       itemTemplate={itemTemplate}
       circular={circular}
-      autoplayInterval={width < 640 ? 5000 : undefined}
+      autoplayInterval={autoplayInterval}
       {...props}
     />
   );

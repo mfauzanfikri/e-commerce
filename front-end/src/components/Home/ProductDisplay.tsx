@@ -1,9 +1,9 @@
 "use client";
 
-import ProductList from "@/components/ProductList";
+import ProductList from "@/components/productList";
 import { ChangeEvent, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { ProductType } from "../Product";
+import { ProductType } from "../product";
 
 type Props = {
   initialProducts?: ProductType[];

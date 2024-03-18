@@ -1,4 +1,4 @@
-import { ProductType } from "@/components/Product";
+import { ProductType } from "@/components/product";
 import { faker } from "@faker-js/faker";
 
 export const generateProductsData = (n: number = 10) => {

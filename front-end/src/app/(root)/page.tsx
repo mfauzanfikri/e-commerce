@@ -1,6 +1,6 @@
-import HighlightCarousel from "@/components/Home/HighlightCarousel";
-import HomeCarousel from "@/components/Home/HomeCarousel";
-import ProductDisplay from "@/components/Home/ProductDisplay";
+import HighlightCarousel from "@/components/Home/highlightCarousel";
+import HomeCarousel from "@/components/Home/homeCarousel";
+import ProductDisplay from "@/components/Home/productDisplay";
 
 const Home = () => {
   return (
