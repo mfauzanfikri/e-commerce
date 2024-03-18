@@ -1,10 +1,10 @@
-import HighlightCarousel from "@/components/Home/highlightCarousel";
-import HomeCarousel from "@/components/Home/homeCarousel";
-import ProductDisplay from "@/components/Home/productDisplay";
+import HighlightCarousel from "@/components/home/highlight-carousel";
+import HomeCarousel from "@/components/home/home-carousel";
+import ProductDisplay from "@/components/home/product-display";
 
 const Home = () => {
   return (
-    <div className="my-5">
+    <main className="container mx-auto my-5">
       <div id="home">
         <HomeCarousel />
       </div>
@@ -14,7 +14,7 @@ const Home = () => {
       <div id="products">
         <ProductDisplay />
       </div>
-    </div>
+    </main>
   );
 };
 

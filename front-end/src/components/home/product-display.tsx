@@ -1,6 +1,6 @@
 "use client";
 
-import ProductList from "@/components/productList";
+import ProductList from "@/components/product-list";
 import { ChangeEvent, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { ProductType } from "../product";

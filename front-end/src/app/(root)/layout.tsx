@@ -10,7 +10,7 @@ export default function MainLayout({
   return (
     <>
       <Header />
-      <main className="container mx-auto">{children}</main>
+      {children}
       <Footer />
     </>
   );
