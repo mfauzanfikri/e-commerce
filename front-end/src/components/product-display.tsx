@@ -1,12 +1,12 @@
 "use client";
 
 import ProductList from "@/components/product-list";
-import { Product } from "@/types/product-type";
+import { ProductType } from "@/types/product-type";
 import { ChangeEvent, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
 type Props = {
-  initialProducts?: Product[];
+  initialProducts?: ProductType[];
 };
 
 type SearchState = {
@@ -14,7 +14,7 @@ type SearchState = {
   start: boolean;
 };
 
-const demoData: Product[] = [
+const demoData: ProductType[] = [
   {
     id: 1,
     name: "Sausages",
@@ -27,7 +27,7 @@ const demoData: Product[] = [
     name: "Bacon",
     price: 463504,
     categories: "Baby",
-    stock: 19,
+    stock: 0,
   },
   {
     id: 3,
@@ -48,7 +48,7 @@ const demoData: Product[] = [
     name: "Sausages",
     price: 131557,
     categories: "Toys",
-    stock: 25,
+    stock: 0,
   },
   {
     id: 6,
@@ -162,6 +162,10 @@ const initialSearchState: SearchState = {
   start: false,
 };
 
+// TODO: migrate data fetching to react-query
+// !: data stock management is not implemented effectively yet
+// TODO: implement data stock management
+
 const ProductDisplay = ({ initialProducts = demoData }: Props) => {
   const [searchState, setSearcState] = useState(initialSearchState);
   const isFocus = searchState.start;
@@ -194,14 +198,14 @@ const ProductDisplay = ({ initialProducts = demoData }: Props) => {
         <h2 className="text-center text-2xl font-bold">Products</h2>
         <div className="mt-5 flex items-center justify-center gap-1.5">
           <div
-            className={`flex items-center gap-1.5 rounded border ${isFocus ? "border-blue-400" : "border-gray-400"} p-1.5`}
+            className={`flex items-center gap-1.5 rounded border ${isFocus ? "border-blue-400" : "border-gray-400"} bg-white p-1.5`}
           >
             <span className="bg-white">
               <FaSearch className="text-gray-600" />
             </span>
             <input
               type="text"
-              placeholder="Search Product"
+              placeholder="search product"
               className="bg-inherit focus:outline-none"
               onChange={handleChange}
               onFocus={() => {

@@ -19,7 +19,7 @@ const items = [
 
 const template = (item: { id: number }) => {
   return (
-    <div className="mb-2 flex h-96 w-full items-center justify-center rounded bg-gray-700 lg:h-[600px] xl:h-[700px]">
+    <div className="mb-2 flex h-96 w-full items-center justify-center bg-gray-700 lg:h-[600px] xl:h-[700px]">
       <p className="text-4xl font-bold text-white">{item.id}</p>
     </div>
   );
@@ -32,6 +32,9 @@ const HomeCarousel = ({
     },
     previousButton: {
       className: "hidden md:block",
+    },
+    itemsContent: {
+      className: "md:rounded",
     },
   },
   value = items,

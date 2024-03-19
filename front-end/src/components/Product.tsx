@@ -1,18 +1,41 @@
-import { Product } from "@/types/product-type";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { addToCart, decreaseQuantity } from "@/lib/redux/slices/cart-slice";
+import { ProductType } from "@/types/product-type";
 import formatToIDR from "@/utils/formatToIDR";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Tag } from "primereact/tag";
 import { ComponentProps } from "react";
+import { useCounter } from "primereact/hooks";
+import { IoAdd, IoRemove } from "react-icons/io5";
 
 type CardProps = ComponentProps<typeof Card>;
 
 type Props = {
-  product: Product;
+  product: ProductType;
 } & CardProps;
 
 const Product = ({ product, ...props }: Props) => {
+  const dispatch = useAppDispatch();
+  const { cartItems } = useAppSelector((state) => state.cart);
+
+  const itemInCart = cartItems.find((item) => item.id === product.id);
+  const countItemInCart = itemInCart?.quantity;
+  const { count, increment, decrement } = useCounter(countItemInCart || 0, {
+    min: 0,
+    max: product.stock,
+    step: 1,
+  });
+
   const formattedPrice = formatToIDR(product.price);
+
+  const handleAddToCart = () => {
+    dispatch(addToCart({ product }));
+  };
+
+  const handleRemoveOneFromCart = () => {
+    dispatch(decreaseQuantity({ itemId: product.id }));
+  };
 
   const header = (
     <>
@@ -32,14 +55,29 @@ const Product = ({ product, ...props }: Props) => {
   );
 
   const footer = (
-    <div>
-      <Button
-        className="lg:scale-110"
-        size="small"
-        disabled={product.stock === 0}
-      >
-        Add to cart
-      </Button>
+    <div className="flex items-center justify-between">
+      <div>
+        <Button
+          className="bg-blue-500 px-2 py-1.5 text-white hover:opacity-90 lg:scale-110"
+          size="small"
+          disabled={product.stock === 0}
+          onClick={handleAddToCart}
+        >
+          Add to cart
+        </Button>
+      </div>
+
+      {itemInCart && (
+        <div className="flex items-center justify-center gap-3">
+          <button onClick={handleRemoveOneFromCart}>
+            <IoRemove />
+          </button>
+          <span>{countItemInCart}</span>
+          <button onClick={handleAddToCart}>
+            <IoAdd />
+          </button>
+        </div>
+      )}
     </div>
   );
 

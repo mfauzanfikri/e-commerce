@@ -9,9 +9,7 @@ const config: Config = {
   ],
   darkMode: "class",
   theme: {
-    extend: {
-      colors: {},
-    },
+    extend: {},
   },
   plugins: [require("tailwind-container-break-out")],
 };

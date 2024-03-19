@@ -4,7 +4,7 @@ import "./globals.css";
 import { PrimeReactProvider } from "primereact/api";
 import Tailwind from "primereact/passthrough/tailwind";
 import "primereact/resources/themes/lara-light-blue/theme.css";
-import { StoreProvider } from "@/lib/redux/store-provider";
+import { StoreProvider } from "@/lib/redux";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,10 +18,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <PrimeReactProvider value={{ pt: Tailwind }}>
+    <PrimeReactProvider>
       <StoreProvider>
-        <html className="min-h-screen bg-gray-50" lang="en">
-          <body className={`${inter.className}`}>{children}</body>
+        <html className="relative min-h-screen bg-gray-100" lang="en">
+          <body className={`min-h-screen ${inter.className}`}>{children}</body>
         </html>
       </StoreProvider>
     </PrimeReactProvider>
