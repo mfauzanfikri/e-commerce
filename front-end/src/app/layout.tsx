@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { PrimeReactProvider } from "primereact/api";
-import Tailwind from "primereact/passthrough/tailwind";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import { StoreProvider } from "@/lib/redux";
+import { initSnap } from "midtrans-snap";
 
 const inter = Inter({ subsets: ["latin"] });
 
