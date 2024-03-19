@@ -5,7 +5,7 @@ export type ErrorResponse = {
 
 export type SuccessResponse = {
   success: boolean;
-  status?: number;
+  status: number;
   message: string;
   data?: Object;
 };

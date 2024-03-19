@@ -9,7 +9,7 @@ type Config = {
 const createRandomProduct = () => {
   return {
     name: faker.commerce.product(),
-    categories: faker.commerce.department(),
+    category: faker.commerce.department(),
     price: Number.parseFloat(
       faker.commerce.price({ min: 50000, max: 500000, dec: 3 }),
     ),

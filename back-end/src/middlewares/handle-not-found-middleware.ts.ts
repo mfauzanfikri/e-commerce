@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
-import { ErrorResponse } from '../types/responses.type';
+import { ErrorResponse } from '../types/response-type';
 
-const errorHandler = (
+const handleNotFound = (
   err: ErrorResponse,
-  req: Request,
+  _: Request,
   res: Response,
-  next: NextFunction
+  __: NextFunction
 ) => {
   if (!err) {
     res.status(404).json({
@@ -19,4 +19,4 @@ const errorHandler = (
   res.status(err.status || 500).json(err);
 };
 
-export default errorHandler;
+export default handleNotFound;

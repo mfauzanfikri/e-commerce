@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
+import CategoryModel from '../models/category-model';
 
-const Controller = {
+const model = CategoryModel;
+
+const CategoryController = {
   get: (req: Request, res: Response) => {
     res.json({ data: 'data' });
   },
@@ -15,4 +18,4 @@ const Controller = {
   },
 };
 
-export default Controller;
+export default CategoryController;
