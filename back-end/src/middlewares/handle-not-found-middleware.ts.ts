@@ -13,6 +13,7 @@ const handleNotFound = (
       status: 404,
       message: '404 NOT FOUND',
     });
+
     return;
   }
 

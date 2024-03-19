@@ -1,15 +1,15 @@
 import express, { Router } from 'express';
-import Controller from '../controllers/main.controller';
+import Controller from '../controllers/category-controller';
 
-const router: Router = express.Router();
+const CategoryRouter: Router = express.Router();
 const controller = Controller;
 
-router.get('/', controller.get);
+CategoryRouter.get('/', controller.get);
 
-router.post('/', controller.post);
+CategoryRouter.post('/', controller.post);
 
-router.put('/', controller.put);
+CategoryRouter.put('/', controller.put);
 
-router.delete('/', controller.delete);
+CategoryRouter.delete('/', controller.delete);
 
-export default router;
+export default CategoryRouter;
