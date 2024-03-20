@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import CategoryModel, {
-  CategoryDeleteData,
   CategoryPostData,
   CategoryPutData,
 } from '../models/category-model';
@@ -14,59 +13,71 @@ import { HTTP_RESPONSE_CODE } from '../constants';
 import { sendInternalServerErrorResponse } from '../services/response-service/send-response';
 
 const model = CategoryModel;
+const statusCode = HTTP_RESPONSE_CODE;
 
 const CategoryController = {
   get: async (_: Request, res: Response) => {
     try {
-      const data = await model.findMany();
+      const categories = await model.findMany();
 
       const response = createSuccessResponse({
         message: 'Categories data fetched successfully',
-        data,
+        data: categories,
       });
 
-      sendJsonResponse(res, response);
+      return sendJsonResponse(res, response);
     } catch (error) {
       const response = createInternalServerErrorResponse();
 
-      sendJsonResponse(res, response);
+      return sendJsonResponse(res, response);
     }
   },
 
   getById: async (req: Request, res: Response) => {
-    const id = Number.parseInt(req.params.id);
+    let id: number | undefined;
+
+    try {
+      id = Number.parseInt(req.params.id);
+    } catch (error) {
+      const response = createErrorResponse({
+        status: statusCode.clientError.unprocessableContent,
+        message: 'id (number) param with required',
+      });
+
+      return sendJsonResponse(res, response);
+    }
 
     if (!id) {
       const response = createErrorResponse({
-        status: HTTP_RESPONSE_CODE.clientError.unprocessableContent,
-        message: 'id param with type of number required',
+        status: statusCode.clientError.unprocessableContent,
+        message: 'id param with required',
       });
 
       return sendJsonResponse(res, response);
     }
 
     try {
-      const data = await model.findFirst({ where: { id: id } });
+      const categories = await model.findFirst({ where: { id: id } });
 
       const response = createSuccessResponse({
         message: 'Category data fetched successfully',
-        data,
+        data: categories,
       });
 
-      sendJsonResponse(res, response);
+      return sendJsonResponse(res, response);
     } catch (error) {
       const response = createInternalServerErrorResponse();
 
-      sendJsonResponse(res, response);
+      return sendJsonResponse(res, response);
     }
   },
 
   post: async (req: Request, res: Response) => {
-    const postData: CategoryPostData = req.body;
+    const postData: CategoryPostData = req.body.data;
 
-    if (!postData.name) {
+    if (!postData || !postData.name) {
       const response = createErrorResponse({
-        status: HTTP_RESPONSE_CODE.clientError.unprocessableContent,
+        status: statusCode.clientError.unprocessableContent,
         message: 'Missing one or more fields',
       });
 
@@ -82,7 +93,7 @@ const CategoryController = {
 
       if (isExist) {
         const response = createErrorResponse({
-          status: HTTP_RESPONSE_CODE.clientError.conflict,
+          status: statusCode.clientError.conflict,
           message: 'Category already exists',
         });
 
@@ -98,7 +109,7 @@ const CategoryController = {
       });
 
       const response = createSuccessResponse({
-        status: HTTP_RESPONSE_CODE.success.created,
+        status: statusCode.success.created,
         message: 'Category created',
         data: createdCategory,
       });
@@ -114,11 +125,12 @@ const CategoryController = {
       typeof req.body.id === 'number'
         ? req.body.id
         : Number.parseInt(req.body.id);
+
     const putData: CategoryPutData = req.body.data;
 
     if (!id) {
       const response = createErrorResponse({
-        status: HTTP_RESPONSE_CODE.clientError.unprocessableContent,
+        status: statusCode.clientError.unprocessableContent,
         message: 'id field required',
       });
 
@@ -127,7 +139,7 @@ const CategoryController = {
 
     if (!putData || !putData.name) {
       const response = createErrorResponse({
-        status: HTTP_RESPONSE_CODE.clientError.unprocessableContent,
+        status: statusCode.clientError.unprocessableContent,
         message: 'Need atleast one data field',
       });
 
@@ -153,7 +165,7 @@ const CategoryController = {
       });
 
       const response = createSuccessResponse({
-        status: HTTP_RESPONSE_CODE.success.ok,
+        status: statusCode.success.ok,
         message: 'Category updated',
         data: updatedCategory,
       });
@@ -165,11 +177,14 @@ const CategoryController = {
   },
 
   delete: async (req: Request, res: Response) => {
-    const deleteData: CategoryDeleteData = req.body;
+    const id: number =
+      typeof req.body.id === 'number'
+        ? req.body.id
+        : Number.parseInt(req.body.id);
 
-    if (!deleteData.id) {
+    if (!id) {
       const response = createErrorResponse({
-        status: HTTP_RESPONSE_CODE.clientError.unprocessableContent,
+        status: statusCode.clientError.unprocessableContent,
         message: 'id field missing',
       });
 
@@ -179,13 +194,13 @@ const CategoryController = {
     try {
       const isExist = await model.findFirst({
         where: {
-          id: deleteData.id,
+          id: id,
         },
       });
 
       if (isExist) {
         const response = createErrorResponse({
-          status: HTTP_RESPONSE_CODE.clientError.notFound,
+          status: statusCode.clientError.notFound,
           message: 'Category not found',
         });
 
@@ -196,10 +211,10 @@ const CategoryController = {
     }
 
     try {
-      await model.delete({ where: { id: deleteData.id } });
+      await model.delete({ where: { id: id } });
 
       const response = createSuccessResponse({
-        status: HTTP_RESPONSE_CODE.success.noContent,
+        status: statusCode.success.noContent,
         message: 'Category deleted',
       });
 

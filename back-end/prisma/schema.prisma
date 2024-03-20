@@ -16,7 +16,8 @@ model User {
   password String
   roleId   Int    @map("role_id")
 
-  role Role @relation(fields: [roleId], references: [id])
+  role        Role          @relation(fields: [roleId], references: [id])
+  transaction Transaction[]
 
   @@map("user")
 }
@@ -31,11 +32,13 @@ model Role {
 }
 
 model Product {
-  id         Int    @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   name       String
   price      Float
-  categoryId Int    @map("category_id")
+  categoryId Int      @map("category_id")
   stock      Int
+  active     Boolean  @default(false)
+  createdAt  DateTime @default(now()) @map("created_at")
 
   category Category @relation(fields: [categoryId], references: [id])
 
@@ -53,11 +56,13 @@ model Category {
 
 model Transaction {
   id          Int      @id @default(autoincrement())
-  refNo       String
-  date        DateTime
+  refNo       String   @unique
+  userId      Int
   grossAmount Float    @map("gross_amount")
   totalPrice  Float    @map("total_price")
+  createdAt   DateTime @default(now()) @map("created_at")
 
+  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   purchasedProduct PurchasedProduct[]
 
   @@map("transaction")
@@ -72,5 +77,15 @@ model PurchasedProduct {
   product     Product     @relation(fields: [productId], references: [id])
   transaction Transaction @relation(fields: [transactionId], references: [id])
 
+  @@unique([productId, transactionId])
   @@map("purchased_product")
+}
+
+model ApiKey {
+  id        Int      @id @default(autoincrement())
+  key       String
+  name      String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("api_key")
 }

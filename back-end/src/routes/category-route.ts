@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
-import Controller from '../controllers/category-controller';
+import CategoryController from '../controllers/category-controller';
 
 const CategoryRouter: Router = express.Router();
-const controller = Controller;
+const controller = CategoryController;
 
 CategoryRouter.get('/', controller.get);
 CategoryRouter.get('/:id', controller.getById);
