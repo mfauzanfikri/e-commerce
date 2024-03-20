@@ -8,7 +8,8 @@ type CreateSuccessResponseParams = {
 
 /**
  *
- * @param params.status @default 200 OK
+ * @param args.status
+ * @default 200 OK
  *
  * @returns SuccessResponse object
  */
@@ -26,24 +27,28 @@ export const createSuccessResponse = ({
 };
 
 type CreateErrorResponseParams = {
-  status?: number;
-  message: 'string';
+  status: number;
+  message: string;
+  errors?: Object | Object[];
 };
 
 /**
  *
- * @param params.status @default 400 Bad Request
+ * @param args.status
+ * @default 400 Bad Request
  *
  * @returns ErrorResponse object
  */
 export const createErrorResponse = ({
-  status = 400,
+  status,
   message,
+  errors = undefined,
 }: CreateErrorResponseParams): ErrorResponse => {
   return {
     success: false,
     status,
     message,
+    errors,
   };
 };
 
@@ -51,6 +56,6 @@ export const createInternalServerErrorResponse = (): ErrorResponse => {
   return {
     success: false,
     status: 500,
-    message: '500 INTERNAL SERVER ERROR',
+    message: 'Internal server error',
   };
 };

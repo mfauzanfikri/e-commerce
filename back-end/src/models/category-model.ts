@@ -13,7 +13,12 @@ export type CategoryPostData = {
 };
 
 export type CategoryPutData = {
+  id: number;
   name?: string;
+};
+
+export type CategoryDeleteData = {
+  id: number;
 };
 
 export default CategoryModel;

@@ -3,4 +3,4 @@ export {
   createInternalServerErrorResponse,
   createSuccessResponse,
 } from './create-response';
-export { sendJSONResponse } from './send-response';
+export { sendJsonResponse } from './send-response';
