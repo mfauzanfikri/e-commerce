@@ -1,4 +1,4 @@
-import { ErrorResponse, SuccessResponse } from '../../types/response-type';
+import { ErrorResponse, SuccessResponse } from '../../types/response.type';
 
 type CreateSuccessResponseParams = {
   status?: number;

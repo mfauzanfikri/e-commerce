@@ -1,5 +1,5 @@
 import { PrismaClient, Transaction } from '@prisma/client';
-import { UserResource } from './user-model';
+import { UserResource } from './user.model';
 
 const prisma = new PrismaClient();
 const TransactionModel: PrismaClient['transaction'] = prisma.transaction;

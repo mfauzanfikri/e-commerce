@@ -1,5 +1,9 @@
 PORT = 3010
 
+#token
+TOKEN_SECRET=1b2d74899506a712e1b7287aa6db3f56ebf3d07b35599f584b0b405aa2442114
+REFRESH_TOKEN_SECRET=b38bace0242430812eb866795e32aca5043ed4b19edf8800de0fdf59fce65475
+
 # This was inserted by `prisma init`:
 
 # Environment variables declared in this file are automatically made available to Prisma.
@@ -10,4 +14,4 @@ PORT = 3010
 
 # See the documentation for all the connection string options: https://pris.ly/d/connection-strings
 
-DATABASE_URL="mysql://USERNAME:PASSWORD@HOST:PORT/database"
+DATABASE_URL="mysql://root:@localhost:3306/e_commerce"

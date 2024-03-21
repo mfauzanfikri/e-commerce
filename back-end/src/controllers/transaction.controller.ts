@@ -4,17 +4,17 @@ import TransactionModel, {
   TransactionPutData,
   TransactionResource,
   TransactionResult,
-} from '../models/transaction-model';
+} from '../models/transaction.model';
 import {
   createErrorResponse,
   createInternalServerErrorResponse,
   createSuccessResponse,
   sendJsonResponse,
-} from '../services/response-service';
+} from '../services/response.service';
 import { HTTP_RESPONSE_CODE } from '../constants';
-import { sendInternalServerErrorResponse } from '../services/response-service/send-response';
-import UserModel from '../models/user-model';
-import RoleModel from '../models/role-model';
+import { sendInternalServerErrorResponse } from '../services/response.service/send-response';
+import UserModel from '../models/user.model';
+import RoleModel from '../models/role.model';
 
 const model = TransactionModel;
 const statusCode = HTTP_RESPONSE_CODE;

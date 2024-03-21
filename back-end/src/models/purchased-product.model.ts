@@ -1,6 +1,6 @@
 import { PrismaClient, PurchasedProduct } from '@prisma/client';
-import { ProductResource } from './product-model';
-import { TransactionResource } from './transaction-model';
+import { ProductResource } from './product.model';
+import { TransactionResource } from './transaction.model';
 
 const prisma = new PrismaClient();
 const PurchasedProductModel: PrismaClient['purchasedProduct'] =

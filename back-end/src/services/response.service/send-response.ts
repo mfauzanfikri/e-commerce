@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { ErrorResponse, SuccessResponse } from '../../types/response-type';
+import { ErrorResponse, SuccessResponse } from '../../types/response.type';
 import { createInternalServerErrorResponse } from './create-response';
 
 /**

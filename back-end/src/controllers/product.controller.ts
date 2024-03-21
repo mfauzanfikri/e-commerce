@@ -4,15 +4,15 @@ import ProductModel, {
   ProductPutData,
   ProductResource,
   ProductResult,
-} from '../models/product-model';
+} from '../models/product.model';
 import {
   createErrorResponse,
   createInternalServerErrorResponse,
   createSuccessResponse,
   sendJsonResponse,
-} from '../services/response-service';
+} from '../services/response.service';
 import { HTTP_RESPONSE_CODE } from '../constants';
-import { sendInternalServerErrorResponse } from '../services/response-service/send-response';
+import { sendInternalServerErrorResponse } from '../services/response.service/send-response';
 
 const model = ProductModel;
 const statusCode = HTTP_RESPONSE_CODE;

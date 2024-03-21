@@ -80,12 +80,3 @@ model PurchasedProduct {
   @@unique([productId, transactionId])
   @@map("purchased_product")
 }
-
-model ApiKey {
-  id        Int      @id @default(autoincrement())
-  key       String
-  name      String   @unique
-  createdAt DateTime @default(now()) @map("created_at")
-
-  @@map("api_key")
-}

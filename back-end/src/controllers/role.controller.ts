@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import RoleModel from '../models/role-model';
+import RoleModel from '../models/role.model';
 import {
   createSuccessResponse,
   sendJsonResponse,
   createInternalServerErrorResponse,
-} from '../services/response-service';
+} from '../services/response.service';
 
 const model = RoleModel;
 

@@ -1,28 +1,25 @@
 import { Request, Response } from 'express';
-import CategoryModel, {
-  CategoryPostData,
-  CategoryPutData,
-} from '../models/category-model';
+import UserModel, { UserPostData, UserPutData } from '../models/user.model';
 import {
   createErrorResponse,
   createInternalServerErrorResponse,
   createSuccessResponse,
   sendJsonResponse,
-} from '../services/response-service';
+} from '../services/response.service';
 import { HTTP_RESPONSE_CODE } from '../constants';
-import { sendInternalServerErrorResponse } from '../services/response-service/send-response';
+import { sendInternalServerErrorResponse } from '../services/response.service/send-response';
 
-const model = CategoryModel;
+const model = UserModel;
 const statusCode = HTTP_RESPONSE_CODE;
 
-const CategoryController = {
+const UserController = {
   get: async (_: Request, res: Response) => {
     try {
-      const categories = await model.findMany();
+      const users = await model.findMany();
 
       const response = createSuccessResponse({
-        message: 'Categories data fetched successfully',
-        data: categories,
+        message: 'Users data fetched successfully',
+        data: users,
       });
 
       return sendJsonResponse(res, response);
@@ -57,25 +54,25 @@ const CategoryController = {
     }
 
     try {
-      const categories = await model.findFirst({ where: { id: id } });
+      const user = await model.findFirst({ where: { id: id } });
 
       const response = createSuccessResponse({
-        message: 'Category data fetched successfully',
-        data: categories,
+        message: 'User data fetched successfully',
+        data: user,
       });
 
-      return sendJsonResponse(res, response);
+      sendJsonResponse(res, response);
     } catch (error) {
       const response = createInternalServerErrorResponse();
 
-      return sendJsonResponse(res, response);
+      sendJsonResponse(res, response);
     }
   },
 
   post: async (req: Request, res: Response) => {
-    const postData: CategoryPostData = req.body.data;
+    const postData: UserPostData = req.body.data;
 
-    if (!postData || !postData.name) {
+    if (!postData || !postData.username || !postData.password) {
       const response = createErrorResponse({
         status: statusCode.clientError.unprocessableContent,
         message: 'Missing one or more fields',
@@ -87,14 +84,14 @@ const CategoryController = {
     try {
       const isExist = await model.findFirst({
         where: {
-          name: postData.name,
+          username: postData.username,
         },
       });
 
       if (isExist) {
         const response = createErrorResponse({
           status: statusCode.clientError.conflict,
-          message: 'Category already exists',
+          message: 'User already exists',
         });
 
         return sendJsonResponse(res, response);
@@ -104,14 +101,14 @@ const CategoryController = {
     }
 
     try {
-      const createdCategory = await model.create({
+      const createdUser = await model.create({
         data: postData,
       });
 
       const response = createSuccessResponse({
         status: statusCode.success.created,
-        message: 'Category created',
-        data: createdCategory,
+        message: 'User created',
+        data: createdUser,
       });
 
       return sendJsonResponse(res, response);
@@ -125,8 +122,7 @@ const CategoryController = {
       typeof req.body.id === 'number'
         ? req.body.id
         : Number.parseInt(req.body.id);
-
-    const putData: CategoryPutData = req.body.data;
+    const putData: UserPutData = req.body.data;
 
     if (!id) {
       const response = createErrorResponse({
@@ -137,7 +133,10 @@ const CategoryController = {
       return sendJsonResponse(res, response);
     }
 
-    if (!putData || !putData.name) {
+    if (
+      !putData ||
+      (!putData.username && !putData.password && !putData.roleId)
+    ) {
       const response = createErrorResponse({
         status: statusCode.clientError.unprocessableContent,
         message: 'Need atleast one data field',
@@ -149,7 +148,7 @@ const CategoryController = {
     const updateData = {};
 
     for (const key in putData) {
-      if (key !== 'name') {
+      if (key !== 'username' && key !== 'password' && key !== 'roleId') {
         continue;
       }
 
@@ -157,8 +156,8 @@ const CategoryController = {
     }
 
     try {
-      const updatedCategory = await model.update({
-        data: updateData as CategoryPutData,
+      const updatedUser = await model.update({
+        data: updateData as UserPutData,
         where: {
           id: id,
         },
@@ -166,8 +165,8 @@ const CategoryController = {
 
       const response = createSuccessResponse({
         status: statusCode.success.ok,
-        message: 'Category updated',
-        data: updatedCategory,
+        message: 'User updated',
+        data: updatedUser,
       });
 
       return sendJsonResponse(res, response);
@@ -201,7 +200,7 @@ const CategoryController = {
       if (isExist) {
         const response = createErrorResponse({
           status: statusCode.clientError.notFound,
-          message: 'Category not found',
+          message: 'User not found',
         });
 
         return sendJsonResponse(res, response);
@@ -215,7 +214,7 @@ const CategoryController = {
 
       const response = createSuccessResponse({
         status: statusCode.success.noContent,
-        message: 'Category deleted',
+        message: 'User deleted',
       });
 
       return sendJsonResponse(res, response);
@@ -225,4 +224,4 @@ const CategoryController = {
   },
 };
 
-export default CategoryController;
+export default UserController;
